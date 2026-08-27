@@ -18,3 +18,15 @@ export const articles = pgTable(
     titleNormIdx: index("articles_title_norm_idx").on(t.titleNormalized, t.publishedAt),
   })
 );
+
+export const sources = pgTable(
+  "sources",
+  {
+    id: serial("id").primaryKey(),
+    name: text("name").notNull().unique(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (t) => ({
+    nameIdx: index("sources_name_idx").on(t.name),
+  })
+);
